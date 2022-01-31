@@ -3,12 +3,124 @@ package com.calcualator;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
+import android.view.View;
+import android.widget.EditText;
 
 public class MainActivity extends AppCompatActivity {
+
+    private EditText displayText;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        displayText = findViewById(R.id.textView);
+
+//        this disables the default keyboard from popping up when the text view is selected
+        displayText.setShowSoftInputOnFocus(false);
+
+        displayText.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if (getString(R.string.display).equals(displayText.getText().toString()))
+                    displayText.setText("");
+            }
+        });
+    }
+
+    private void updateText(String textToAdd) {
+        String oldText = displayText.getText().toString();
+        // grab the cursor position
+        int cursorPosition = displayText.getSelectionStart();
+        if (getString(R.string.display).equals(displayText.getText().toString()))
+            displayText.setText(textToAdd);
+        else {
+            String textOnLeft = oldText.substring(0, cursorPosition);
+            String textOnRight = oldText.substring(cursorPosition);
+            // this places the text to add at the position where the cursor is currently placed
+            displayText.setText(String.format("%s%s%s", textOnLeft, textToAdd, textOnRight));
+        }
+        displayText.setSelection(cursorPosition + 1);
+    }
+
+    public void zeroButton(View view) {
+        updateText("0");
+    }
+
+    public void oneButton(View view) {
+        updateText("1");
+    }
+
+    public void twoButton(View view) {
+        updateText("2");
+    }
+
+    public void threeButton(View view) {
+        updateText("3");
+    }
+
+    public void fourButton(View view) {
+        updateText("4");
+    }
+
+    public void fiveButton(View view) {
+        updateText("5");
+    }
+
+    public void sixButton(View view) {
+        updateText("6");
+    }
+
+    public void sevenButton(View view) {
+        updateText("7");
+    }
+
+    public void eightButton(View view) {
+        updateText("8");
+    }
+
+    public void nineButton(View view) {
+        updateText("9");
+    }
+
+    public void decimalButton(View view) {
+        updateText(".");
+    }
+
+    public void plusButton(View view) {
+        updateText("+");
+    }
+
+    public void minusButton(View view) {
+        updateText("-");
+    }
+
+    public void multiplyButton(View view) {
+        updateText("×");
+    }
+
+    public void divideButton(View view) {
+        updateText("÷");
+    }
+
+    public void exponentButton(View view) {
+        updateText("^");
+    }
+
+    public void clearButton(View view) {
+        displayText.setText("");
+    }
+
+    public void backspaceButton(View view) {
+        int cursorPosition = displayText.getSelectionStart();
+        int textLength = displayText.getText().length();
+        if (cursorPosition > 0 && textLength > 0) {
+            String textOnLeft = displayText.getText().toString().substring(0, cursorPosition - 1);
+            String textOnRight = displayText.getText().toString().substring(cursorPosition);
+            String updatedText = String.format("%s%s", textOnLeft, textOnRight);
+            displayText.setText(updatedText);
+            displayText.setSelection(cursorPosition - 1);
+        }
     }
 }
