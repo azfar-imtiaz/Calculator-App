@@ -253,12 +253,13 @@
                 style="@style/TextAppearance.AppCompat.Widget.Button.Borderless.Colored"
                 android:layout_width="0dp"
                 android:layout_height="70dp"
+                android:layout_margin="5dp"
                 android:layout_weight="1"
-                android:text="@string/sign"
                 android:background="@drawable/circle"
+                android:onClick="plusMinusButton"
+                android:text="@string/sign"
                 android:textColor="#FFFFFF"
-                android:layout_margin="5dp" 
-				android:textSize="24sp"/>
+                android:textSize="24sp" />
 
             <Button
                 android:id="@+id/zeroButton"
@@ -291,13 +292,14 @@
                 style="@style/TextAppearance.AppCompat.Widget.Button.Borderless.Colored"
                 android:layout_width="0dp"
                 android:layout_height="70dp"
+                android:layout_margin="5dp"
                 android:layout_weight="1"
-                android:text="@string/equals"
                 android:background="@drawable/circle"
+                android:backgroundTint="#43A047"
+                android:onClick="equalsButton"
+                android:text="@string/equals"
                 android:textColor="#FFFFFF"
-                android:layout_margin="5dp" 
-				android:textSize="24sp"
-                android:backgroundTint="#43A047"/>
+                android:textSize="24sp" />
         </TableRow>
     </TableLayout>
 

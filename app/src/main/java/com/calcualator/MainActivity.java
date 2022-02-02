@@ -6,6 +6,8 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.EditText;
 
+import org.mariuszgromada.math.mxparser.*;
+
 public class MainActivity extends AppCompatActivity {
 
     private EditText displayText;
@@ -108,6 +110,10 @@ public class MainActivity extends AppCompatActivity {
         updateText("^");
     }
 
+    public void plusMinusButton(View view) {
+        updateText("-");
+    }
+
     public void clearButton(View view) {
         displayText.setText("");
     }
@@ -142,5 +148,17 @@ public class MainActivity extends AppCompatActivity {
             displayText.setText(updatedText);
             displayText.setSelection(cursorPosition - 1);
         }
+    }
+
+    public void equalsButton(View view) {
+        String userExpression = displayText.getText().toString();
+        userExpression = userExpression.replaceAll(getString(R.string.divide), "/");
+        userExpression = userExpression.replaceAll(getString(R.string.multiply), "*");
+
+        Expression exp = new Expression(userExpression);
+        String result = String.valueOf(exp.calculate());
+
+        displayText.setText(result);
+        displayText.setSelection(result.length());
     }
 }
