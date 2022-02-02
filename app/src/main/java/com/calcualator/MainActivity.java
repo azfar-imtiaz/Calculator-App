@@ -112,6 +112,26 @@ public class MainActivity extends AppCompatActivity {
         displayText.setText("");
     }
 
+    public void paranthesesButton(View view) {
+        int cursorPosition = displayText.getSelectionStart();
+        int openParanthesesCount = 0;
+        int closeParanthesesCount = 0;
+        int textLength = displayText.getText().length();
+
+        for (int i = 0; i < cursorPosition; i++) {
+            if (displayText.getText().toString().charAt(i) == '(')
+                openParanthesesCount++;
+            else if (displayText.getText().toString().charAt(i) == ')')
+                closeParanthesesCount++;
+        }
+
+        if (openParanthesesCount > closeParanthesesCount && displayText.getText().toString().charAt(textLength - 1) != '(')
+            updateText(")");
+        else if (openParanthesesCount == closeParanthesesCount || displayText.getText().toString().charAt(textLength - 1) == '(')
+            updateText("(");
+        displayText.setSelection(cursorPosition + 1);
+    }
+
     public void backspaceButton(View view) {
         int cursorPosition = displayText.getSelectionStart();
         int textLength = displayText.getText().length();
