@@ -27,7 +27,7 @@
                 android:layout_margin="5dp"
                 android:layout_weight="1"
                 android:background="@drawable/circle"
-                android:backgroundTint="#DD2C00"
+                android:backgroundTint="#F4B400"
                 android:onClick="clearButton"
                 android:text="@string/clear"
                 android:textColor="#FFFFFF"
@@ -295,7 +295,7 @@
                 android:layout_margin="5dp"
                 android:layout_weight="1"
                 android:background="@drawable/circle"
-                android:backgroundTint="#43A047"
+                android:backgroundTint="#0F9D58"
                 android:onClick="equalsButton"
                 android:text="@string/equals"
                 android:textColor="#FFFFFF"
@@ -325,6 +325,7 @@
         android:layout_height="wrap_content"
         android:layout_margin="5dp"
         android:background="@drawable/circle"
+        android:backgroundTint="#DB4437"
         android:onClick="backspaceButton"
         android:text="@string/backspace"
         app:layout_constraintBottom_toTopOf="@+id/tableLayout"
@@ -332,4 +333,22 @@
         app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
         app:srcCompat="@drawable/backspace" />
+
+    <Button
+        android:id="@+id/historyButton"
+        style="@style/Widget.AppCompat.Button.Borderless"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="5dp"
+        android:layout_marginBottom="4dp"
+        android:background="@drawable/circle"
+        android:backgroundTint="#4285F4"
+        android:onClick="historyButton"
+        android:text="@string/history"
+        android:textColor="#FFFFFF"
+        android:textSize="24sp"
+        app:layout_constraintBottom_toTopOf="@+id/tableLayout"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent" />
 </androidx.constraintlayout.widget.ConstraintLayout>

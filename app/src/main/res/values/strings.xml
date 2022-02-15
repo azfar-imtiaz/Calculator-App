@@ -24,6 +24,7 @@
     <string name="equals">=</string>
 
     <string name="backspace"> </string>
+    <string name="history">H</string>
 
     <string name="display">Enter a value</string>
 </resources>

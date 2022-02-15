@@ -2,15 +2,19 @@ package com.calcualator;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.EditText;
 
 import org.mariuszgromada.math.mxparser.*;
 
+import java.util.ArrayList;
+
 public class MainActivity extends AppCompatActivity {
 
     private EditText displayText;
+    private ArrayList<String> historyCommands = new ArrayList<String>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -152,6 +156,8 @@ public class MainActivity extends AppCompatActivity {
 
     public void equalsButton(View view) {
         String userExpression = displayText.getText().toString();
+        historyCommands.add(userExpression);
+
         userExpression = userExpression.replaceAll(getString(R.string.divide), "/");
         userExpression = userExpression.replaceAll(getString(R.string.multiply), "*");
 
@@ -160,5 +166,15 @@ public class MainActivity extends AppCompatActivity {
 
         displayText.setText(result);
         displayText.setSelection(result.length());
+    }
+
+    public void historyButton(View view) {
+        Intent intent = new Intent(this, HistoryActivity.class);
+        intent.putExtra("listOfCommands", historyCommands);
+        /*
+        TODO: Get data back from activity, and use that to populate displayText. Follow the
+         following link: https://stackoverflow.com/questions/1124548/how-to-pass-the-values-from-one-activity-to-previous-activity#:~:text=To%20capture%20actions%20performed%20on%20one%20Activity%20within%20another%20requires%20three%20steps.
+         */
+        startActivity(intent);
     }
 }
