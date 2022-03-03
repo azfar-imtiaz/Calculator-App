@@ -50,6 +50,11 @@ public class MainActivity extends AppCompatActivity {
         displayText.setSelection(cursorPosition + 1);
     }
 
+    private void replaceText(String text) {
+        displayText.setText(text);
+        displayText.setSelection(text.length());
+    }
+
     public void zeroButton(View view) {
         updateText("0");
     }
@@ -171,10 +176,15 @@ public class MainActivity extends AppCompatActivity {
     public void historyButton(View view) {
         Intent intent = new Intent(this, HistoryActivity.class);
         intent.putExtra("listOfCommands", historyCommands);
-        /*
-        TODO: Get data back from activity, and use that to populate displayText. Follow the
-         following link: https://stackoverflow.com/questions/1124548/how-to-pass-the-values-from-one-activity-to-previous-activity#:~:text=To%20capture%20actions%20performed%20on%20one%20Activity%20within%20another%20requires%20three%20steps.
-         */
-        startActivity(intent);
+        startActivityForResult(intent, 1);
+    }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == 1) {
+            String selectedCommand = data.getStringExtra("selectedCommand");
+            replaceText(selectedCommand);
+        }
     }
 }
