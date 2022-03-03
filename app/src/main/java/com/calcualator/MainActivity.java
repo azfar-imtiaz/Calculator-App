@@ -2,10 +2,12 @@ package com.calcualator;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.Toast;
 
 import org.mariuszgromada.math.mxparser.*;
 
@@ -53,6 +55,11 @@ public class MainActivity extends AppCompatActivity {
     private void replaceText(String text) {
         displayText.setText(text);
         displayText.setSelection(text.length());
+    }
+
+    private void clearText() {
+        displayText.setText("");
+        displayText.setSelection(0);
     }
 
     public void zeroButton(View view) {
@@ -161,16 +168,23 @@ public class MainActivity extends AppCompatActivity {
 
     public void equalsButton(View view) {
         String userExpression = displayText.getText().toString();
-        historyCommands.add(userExpression);
 
         userExpression = userExpression.replaceAll(getString(R.string.divide), "/");
         userExpression = userExpression.replaceAll(getString(R.string.multiply), "*");
 
         Expression exp = new Expression(userExpression);
         String result = String.valueOf(exp.calculate());
-
-        displayText.setText(result);
-        displayText.setSelection(result.length());
+        
+        if (result.equals("NaN")) {
+            Toast.makeText(getApplicationContext(), "Invalid operation!", Toast.LENGTH_SHORT).
+                    show();
+            clearText();
+        }
+        else {
+            historyCommands.add(userExpression);
+            displayText.setText(result);
+            displayText.setSelection(result.length());
+        }
     }
 
     public void historyButton(View view) {
@@ -182,9 +196,11 @@ public class MainActivity extends AppCompatActivity {
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        if (requestCode == 1) {
-            String selectedCommand = data.getStringExtra("selectedCommand");
-            replaceText(selectedCommand);
+        if (resultCode != Activity.RESULT_CANCELED) {
+            if (requestCode == 1) {
+                String selectedCommand = data.getStringExtra("selectedCommand");
+                replaceText(selectedCommand);
+            }
         }
     }
 }
